@@ -1,0 +1,48 @@
+1.foo.	300	IN	TXT	
+2.foo.	300	IN	TXT	garbage
+3.foo.	300	IN	TXT	v=spf1
+4.bad.	300	IN	TXT	v=spf1 all:value
+5.bad.	300	IN	TXT	v=spf1 include:payton
+6.good.	300	IN	TXT	v=spf1 include:example.com
+7.bad.	300	IN	TXT	v=spf1 a:1.2.3.4
+8.bad.	300	IN	TXT	v=spf1 a:1.2.3.4/30
+9.bad.	300	IN	TXT	v=spf1 a:1.2.3.4/alpha
+10.good.	300	IN	TXT	v=spf1 a:%{ir}.%{v}._spf.%{d2}
+11.good.	300	IN	TXT	v=spf1 a:example.com
+11b.good.	300	IN	TXT	v=spf1 a/17
+12.bad.	300	IN	TXT	v=spf1 a:example.com/500
+13.good.	300	IN	TXT	v=spf1 a:example.com/10
+14.bad.	300	IN	TXT	v=spf1 a:example.com/alpha
+15.bad.	300	IN	TXT	v=spf1 mx:reed
+16.bad.	300	IN	TXT	v=spf1 mx:1.2.3.4
+17.bad.	300	IN	TXT	v=spf1 mx:1.2.3.4/30
+18.bad.	300	IN	TXT	v=spf1 mx:1.2.3.4/alpha
+19.good.	300	IN	TXT	v=spf1 mx:example.com
+20.bad.	300	IN	TXT	v=spf1 mx:example.com/500
+21.good.	300	IN	TXT	v=spf1 mx:example.com/10
+22.bad.	300	IN	TXT	v=spf1 mx:example.com/alpha
+23.good.	300	IN	TXT	v=spf1 mx
+24.good.	300	IN	TXT	v=spf1 mx/30 mx:example.org/30 -all
+25.bad.	300	IN	TXT	v=spf1 ptr:reed
+26.good.	300	IN	TXT	v=spf1 ptr
+27.good.	300	IN	TXT	"v=spf1 -ptr +all"
+28.bad.	300	IN	TXT	v=spf1 ptr:1.2.3.4
+29.good.	300	IN	TXT	v=spf1 ip4:4.3.2.1
+30.bad.	300	IN	TXT	v=spf1 ip4:::1
+31.good.	300	IN	TXT	v=spf1 ip4:1.2.3.4/10
+32.bad.	300	IN	TXT	v=spf1 ip4:1.2.3.4/200
+33.bad.	300	IN	TXT	v=spf1 ip4:1.2.3.4/alpha
+34.bad.	300	IN	TXT	v=spf1 ip4:alex
+35.bad.	300	IN	TXT	v=spf1 ip6:alex
+36.good.	300	IN	TXT	v=spf1 ip6:::1
+37.bad.	300	IN	TXT	v=spf1 ip6:4.3.2.1
+38.good.	300	IN	TXT	v=spf1 ip6:::1/100
+39.bad.	300	IN	TXT	v=spf1 ip6:::1/-7
+40.bad.	300	IN	TXT	v=spf1 ip6:::1/beta
+41.bad.	300	IN	TXT	v=spf1 exists:alex
+42.good.	300	IN	TXT	v=spf1 exists:%{l1r+}.%{d}
+43.good.	300	IN	TXT	v=spf1 redirect=example.org
+44.good.	300	IN	TXT	"v=spf1 redirect=example.org"
+45.good.	300	IN	TXT	v=spf1 mx -all exp=explain._spf.%{d}
+46.good.	300	IN	TXT	"v=sp" "f1 m" "x -all ex" "p=explain._spf.%{d}"
+47.bad.	300	IN	TXT	"v=sp f1 m x -all ex p=explain._spf.%{d}"
