@@ -73,8 +73,13 @@ for line in sys.stdin.readlines():
 	if not rdata:
 		continue
 
+	# probably should do this better, to merge TXT strings
 	rdata = rdata.replace('" "', '')
-	rdata = rdata.replace('"', '')
+	# remove optional front and end quote
+	if rdata.endswith('"'):
+		rdata = rdata[:-1]
+	if rdata.startswith('"'):
+		rdata = rdata[1:]
 
 	# we will check if it is anywhere
 	# even though it is bad if v=spf1 is not at the beginning
@@ -87,6 +92,9 @@ for line in sys.stdin.readlines():
 		if owner == prev_owner:
 			print("FAIL: SPF record must be a single record:", owner)
 		prev_owner = owner
+
+		if '\"' in rdata:
+			print("FAIL: escaped quotes are not allowed")
 
 		if rdata[:7].lower() != "v=spf1 " and rdata.lower() != "v=spf1":
 			print("FAIL: SPF record must begin with v=spf1 followed by space or only contain v=spf1")

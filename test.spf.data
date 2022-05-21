@@ -63,3 +63,6 @@
 53.bad.	300	IN	SPF	"v=spf1 -all"
 54.bad.	300	IN	SPF	"v=spf1 junk"
 55.bad.	300	IN	SPF	"mx v=spf1 ?all"
+56.bad.	300	IN	TXT	"\"v=spf1\""
+57.bad.	300	IN	TXT	"v=spf1 \"mx:example.net\" -all"
+58.bad.	300	IN	TXT	"v=spf1 \" mx a -all\""
