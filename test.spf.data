@@ -1,6 +1,14 @@
 1.foo.	300	IN	TXT	
 2.foo.	300	IN	TXT	garbage
-3.foo.	300	IN	TXT	v=spf1
+3.good.	300	IN	TXT	v=spf1
+3b.good.	300	IN	TXT	"v=spf1 "
+3c.bad.	300	IN	TXT	"v=spf1mx"
+3d.bad.	300	IN	TXT	v=spfl
+3e.bad.	300	IN	TXT	"v=spfl all"
+3f.bad.	300	IN	TXT	"mx v=spf1"
+3g.good.	300	IN	TXT	"V=sPf1"
+3h.good.	300	IN	TXT	"v=SPF1"
+3i.bad.	300	IN	TXT	"v=spf1 mx v=spf1 ~all"
 4.bad.	300	IN	TXT	v=spf1 all:value
 5.bad.	300	IN	TXT	v=spf1 include:payton
 6.good.	300	IN	TXT	v=spf1 include:example.com

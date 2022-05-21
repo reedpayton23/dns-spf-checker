@@ -64,7 +64,7 @@ for line in sys.stdin.readlines():
 		continue
 	
 	# no space or tab in first qname
-	rrset = re.search(r'^([^ 	]+).*\s(TXT)\s+(.*)$', line)
+	rrset = re.search(r'^([^ 	]+).*\s(TXT)\s+(.*)$', line.rstrip('\n'))
 
 	rdata = rrset.group(3)
 
@@ -74,8 +74,11 @@ for line in sys.stdin.readlines():
 	rdata = rdata.replace('" "', '')
 	rdata = rdata.replace('"', '')
 
-	if rdata[:7] == "v=spf1 ":
+	# we will check if it is anywhere
+	# even though it is bad if v=spf1 is not at the beginning
+	if "v=spf" in rdata.lower():
 
+		print()
 		print(line, end="")
 
 		owner = rrset.group(1)
@@ -83,8 +86,19 @@ for line in sys.stdin.readlines():
 			print("FAIL: SPF record must be a single record:", owner)
 		prev_owner = owner
 
-		mechanism_list = rdata[6:].strip().split(" ")
+		if rdata[:7].lower() != "v=spf1 " and rdata.lower() != "v=spf1":
+			print("FAIL: SPF record must begin with v=spf1 followed by space or only contain v=spf1")
+			spf_terms = rdata
+
+		elif rdata[:6:].lower() == "v=spf1":
+			spf_terms = rdata[rdata.lower().startswith("v=spf1") and len ("v=spf1"):]
+		# remove v=spf1 and space from front before looking at terms
+		elif rdata[:7:].lower() == "v=spf1":
+			spf_terms = rdata[rdata.lower().startswith("v=spf1 ") and len ("v=spf1 "):]
+
+		mechanism_list = spf_terms.split(" ")
 		#print(mechanism_list)
+
 		for item in mechanism_list:
 
 			if not item:
@@ -164,5 +178,4 @@ for line in sys.stdin.readlines():
 
 			else:
 				print("FAIL: Unknown mechanism:", item)
-	print()
 
