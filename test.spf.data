@@ -66,3 +66,7 @@
 56.bad.	300	IN	TXT	"\"v=spf1\""
 57.bad.	300	IN	TXT	"v=spf1 \"mx:example.net\" -all"
 58.bad.	300	IN	TXT	"v=spf1 \" mx a -all\""
+59.bad.	300	IN	TXT	"v=spf1 a:example.net;"
+60.bad.	300	IN	TXT	"v=spf1 a:example.net}"
+61.bad.	300	IN	TXT	"v=spf1 a:example.net: -all"
+62.good.	300	IN	TXT	"v=spf1 a:example.net. -all"

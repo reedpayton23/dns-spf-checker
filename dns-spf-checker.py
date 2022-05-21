@@ -20,6 +20,10 @@ def domain_checker(value):
 	except:
 		pass
 
+	# this is a hack
+	if re.search('[^A-Za-z0-9.]$', value) and not re.search('%{[slodiphcrtv][^}]*}$', value):
+		print("FAIL: The domain name does not appear to have a valid TLD:", value)
+
 	if "%" in value:
 		# TODO: later check for macro
 		return
