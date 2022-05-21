@@ -53,4 +53,9 @@
 44.good.	300	IN	TXT	"v=spf1 redirect=example.org"
 45.good.	300	IN	TXT	v=spf1 mx -all exp=explain._spf.%{d}
 46.good.	300	IN	TXT	"v=sp" "f1 m" "x -all ex" "p=explain._spf.%{d}"
-47.bad.	300	IN	TXT	"v=sp f1 m x -all ex p=explain._spf.%{d}"
+47.skipped.bad.	300	IN	TXT	"v=sp f1 m x -all ex p=explain._spf.%{d}"
+48.duplicate.bad.	300	IN	TXT	"v=spf1 -all"
+48.duplicate.bad.	300	IN	TXT	"v=spf1 -all"
+49.bad	300	IN	TXT	"v=spf1 unknown"
+50.bad	300	IN	TXT	"v=spf1 unknown:example.com"
+51.bad	300	IN	TXT	"v=spf1 unknown=example.com"
