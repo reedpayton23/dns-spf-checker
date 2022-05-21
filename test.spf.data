@@ -59,3 +59,7 @@
 49.bad	300	IN	TXT	"v=spf1 unknown"
 50.bad	300	IN	TXT	"v=spf1 unknown:example.com"
 51.bad	300	IN	TXT	"v=spf1 unknown=example.com"
+52.skipped.bad	300	IN	SPF	unknown
+53.bad	300	IN	SPF	"v=spf1 -all"
+54.bad	300	IN	SPF	"v=spf1 junk"
+55.bad	300	IN	SPF	"mx v=spf1 ?all"

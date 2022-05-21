@@ -64,7 +64,9 @@ for line in sys.stdin.readlines():
 		continue
 	
 	# no space or tab in first qname
-	rrset = re.search(r'^([^ 	]+).*\s(TXT)\s+(.*)$', line.rstrip('\n'))
+	rrset = re.search(r'^([^ 	]+).*\s(TXT|SPF)\s+(.*)$', line.rstrip('\n'))
+
+	rrtype = rrset.group(2)
 
 	rdata = rrset.group(3)
 
@@ -178,4 +180,7 @@ for line in sys.stdin.readlines():
 
 			else:
 				print("FAIL: Unknown mechanism:", item)
+
+	if rrset.group(2) == "SPF":
+		print("FAIL: SPF resource record type is deprecated, use TXT instead")
 
